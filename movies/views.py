@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from .api_movies_service import ApiMoviesService
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from .permission import IsUserPermission
 from rest_framework.decorators import (
     api_view,
     authentication_classes,
@@ -19,8 +19,7 @@ def list_popular_movies(request):
 
 
 @api_view(["GET"])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsUserPermission])
 def list_best_assessment(request):
     page = request.GET.get("page", 1)
     api = ApiMoviesService()
@@ -30,7 +29,6 @@ def list_best_assessment(request):
 
 @api_view(["GET"])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def list_movies_MovieTheater(request):
     page = request.GET.get("page", 1)
     api = ApiMoviesService()
@@ -40,7 +38,6 @@ def list_movies_MovieTheater(request):
 
 @api_view(["GET"])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def find_movies(request):
     query = request.GET.get("query")
     api = ApiMoviesService()
@@ -50,7 +47,6 @@ def find_movies(request):
 
 @api_view(["GET"])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def detail_movie(request, id_movie):
     api = ApiMoviesService()
     detail_movie = api.getMovieById(id_movie).json()
@@ -59,7 +55,6 @@ def detail_movie(request, id_movie):
 
 @api_view(["GET"])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def credits_movie(request, id_movie):
     api = ApiMoviesService()
     credits_movie = api.getCreditsMovie(id_movie).json()
@@ -68,7 +63,6 @@ def credits_movie(request, id_movie):
 
 @api_view(["GET"])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def providers_movie(request, id_movie):
     api = ApiMoviesService()
     providers_movie = api.getProviders(id_movie).json()
@@ -77,8 +71,15 @@ def providers_movie(request, id_movie):
 
 @api_view(["GET"])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def list_genres(request):
     api = ApiMoviesService()
     genres = api.getGenres().json()
     return JsonResponse(genres)
+
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+def translation_movie(request, id_movie):
+    api = ApiMoviesService()
+    translation_movie = api.translation(id_movie).json()
+    return JsonResponse(translation_movie)
