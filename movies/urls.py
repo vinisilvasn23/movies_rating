@@ -21,5 +21,6 @@ urlpatterns = [
         "movies/<int:id_movie>/providers/",
         views.providers_movie,
     ),
-    path("genres/", views.list_genres, name="list_genres"),
+    path("genres/", views.list_genres),
+    path("movie/<int:id_movie>/translations/", views.translation_movie),
 ]
