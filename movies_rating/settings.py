@@ -52,7 +52,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
 ]
 
-MY_APPS = ["users", "rating", "utils", "recovery", "movies"]
+MY_APPS = ["users", "rating", "recovery", "movies"]
 
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
@@ -97,9 +97,7 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
-API_BASE_URL = os.getenv("API_BASE_URL"),
-MOVIE_API_KEY = os.getenv("MOVIE_API_KEY"),
-MOVIE_API_TOKEN = os.getenv("MOVIE_API_TOKEN"),
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
