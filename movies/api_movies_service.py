@@ -78,3 +78,9 @@ class ApiMoviesService:
         params = {"api_key": self.api_key}
         response = requests.post(url, json=token, headers=self._get_headers())
         return response
+
+    def translation(self, id_movie):
+        url = f"{self.base_url}movie/{id_movie}/translations"
+        params = {"api_key": self.api_key}
+        response = requests.get(url, params=params, headers=self._get_headers())
+        return response
