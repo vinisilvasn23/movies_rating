@@ -6,11 +6,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_field_names(cls, declared_fields, info):
-        field_names = super().get_field_names(declared_fields, info)
-        field_names[User.USERNAME_FIELD] = 'email'
-        return field_names
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data["user_id"] = self.user.id
+        return data
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
