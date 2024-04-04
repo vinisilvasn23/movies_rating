@@ -19,7 +19,7 @@ def list_popular_movies(request):
 
 
 @api_view(["GET"])
-@permission_classes([IsUserPermission])
+@authentication_classes([TokenAuthentication])
 def list_best_assessment(request):
     page = request.GET.get("page", 1)
     api = ApiMoviesService()
@@ -83,3 +83,21 @@ def translation_movie(request, id_movie):
     api = ApiMoviesService()
     translation_movie = api.translation(id_movie).json()
     return JsonResponse(translation_movie)
+
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+def list_popular_series(request):
+    page = request.GET.get("page", 1)
+    api = ApiMoviesService()
+    popular_movies = api.listSeriesPopular(page).json()
+    return JsonResponse(popular_movies)
+
+
+@api_view(["GET"])
+@permission_classes([IsUserPermission])
+def list_top_series(request):
+    page = request.GET.get("page", 1)
+    api = ApiMoviesService()
+    best_assessment = api.topSeries(page).json()
+    return JsonResponse(best_assessment)

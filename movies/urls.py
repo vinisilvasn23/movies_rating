@@ -23,4 +23,12 @@ urlpatterns = [
     ),
     path("genres/", views.list_genres),
     path("movie/<int:id_movie>/translations/", views.translation_movie),
+    path(
+        "series/popular/",
+        views.list_popular_series,
+    ),
+    path(
+        "series/top-series/",
+        views.list_top_series,
+    ),
 ]

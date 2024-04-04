@@ -15,8 +15,10 @@ class RatingListView(ListCreateAPIView):
     serializer_class = RatingSerializer
 
     def get_queryset(self):
-        user = self.request.user
-        queryset = Rating.objects.filter(user=user)
+        queryset = Rating.objects.all()
+        movie_id = self.request.query_params.get("movie_id", None)
+        if movie_id is not None:
+            queryset = queryset.filter(movie_id=movie_id)
         return queryset
 
     def perform_create(self, serializer):

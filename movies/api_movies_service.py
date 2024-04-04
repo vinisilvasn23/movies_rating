@@ -84,3 +84,15 @@ class ApiMoviesService:
         params = {"api_key": self.api_key}
         response = requests.get(url, params=params, headers=self._get_headers())
         return response
+
+    def listSeriesPopular(self, page):
+        url = f"{self.base_url}tv/popular"
+        params = {"api_key": self.api_key, "page": page}
+        response = requests.get(url, params=params, headers=self._get_headers())
+        return response
+
+    def topSeries(self, page):
+        url = f"{self.base_url}tv/top_rated"
+        params = {"api_key": self.api_key, "page": page}
+        response = requests.get(url, params=params, headers=self._get_headers())
+        return response
